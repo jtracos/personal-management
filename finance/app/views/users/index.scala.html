@@ -1,0 +1,19 @@
+@(users: Seq[User])(implicit request: MessagesRequestHeader)
+@import helper._
+
+@main("Recurrence") {
+<div>
+  <div id="recurrences">
+    <h2>Recurrences</h2>
+    <table>
+      <tr><th>Id</th><th>Description</th></tr>
+      @for(user <- users){
+      <tr>
+        <td>@{user.name}</td>
+        <td>@user.birthDate</td>
+      </tr>
+      }
+    </table>
+  </div>
+</div>
+}

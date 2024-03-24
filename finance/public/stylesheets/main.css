@@ -1,0 +1,12 @@
+
+body {
+  background-color: lightblue;
+}
+
+div {
+  background-color: gray;
+  color: white;
+  font-family: verdana;
+  font-size: 20px;
+  text-align: left;
+}
