@@ -1,6 +1,3 @@
-DROP SCHEMA IF EXISTS finance;
-CREATE SCHEMA IF NOT EXISTS finance;
-
 USE finance;
 
 CREATE TABLE IF NOT EXISTS USERS(
@@ -38,7 +35,7 @@ CREATE TABLE IF NOT EXISTS EVENT_TYPE(
     id TINYINT check(id in (1,2) ),
     event_desc VARCHAR(30),
     constraint PK_TYPE primary key(id)
-)
+);
 
 CREATE TABLE IF NOT EXISTS PAYMENT_INFORMATION(
 payment_id int,
@@ -64,7 +61,7 @@ end_date date null,
 duration_month int null,
 payment_day int null,
 ind_periodic boolean not null check( ind_periodic in (-1, 1)),
-ind_active tinyint,
+ind_active tinyint not null,
 event_desc varchar(50),
 constraint PK_EVENT_INFO primary key(user_id,event_id),
 constraint FK_EVENT_TYPE foreign key(event_type) references EVENT_TYPE(id),
