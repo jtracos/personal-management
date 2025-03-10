@@ -1,6 +1,6 @@
 USE finance;
 
-INSERT INTO USERS(user_id, user_name, first_name, last_name, birth_date, signup_date, is_active)
+INSERT INTO USERS(user_id, user_name, first_name, last_name, birth_date, signup_date, ind_active)
 VALUES
 (1, 'JOSUE', 'TRINIDAD','ACOSTA', '1996-07-22','2024-01-06',true);
 

@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS USERS(
  last_name varchar(50) null,
  birth_date date not null,
  signup_date DATE  not null,
- is_active boolean not null,
+ ind_active boolean not null,
  update_date date null,
  constraint PK_USER primary key(user_id)
 );
