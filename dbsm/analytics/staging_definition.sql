@@ -43,8 +43,8 @@ payment_limit_day int,
 payment_lapse int,
 update_date date not null,
 constraint PK_PAYMENTS primary key(payment_id),
-constraint FK_CARD_TYPE foreign key(card_type_id) references CARD_TYPES(card_type_id),
-constraint FK_BANK foreign key(bank_id) references BANK_INFORMATION(bank_id)
+constraint FK_CARD_TYPE foreign key(card_type_id) references stg.CARD_TYPES(card_type_id),
+constraint FK_BANK foreign key(bank_id) references stg.BANK_INFORMATION(bank_id)
 );
 
 CREATE TABLE IF NOT EXISTS stg.EVENT_INFORMATION(
@@ -52,7 +52,7 @@ user_id bigint,
 event_id int,
 payment_id int,
 event_type int,
-recurrence int not null check( recurrence in (-1,0,1,2)) default -1,
+recurrence int not null check( recurrence in (-1,0,1,2,3)) default -1,
 signup_date date not null,
 start_date date null,
 end_date date null,
@@ -62,10 +62,10 @@ ind_periodic int not null check( ind_periodic in (-1, 1)),
 ind_active int not null,
 event_desc varchar(50),
 constraint PK_EVENT_INFO primary key(user_id,event_id),
-constraint FK_EVENT_TYPE foreign key(event_type) references EVENT_TYPE(id),
-constraint FK_EVENT_RECURRENCE foreign key(recurrence) references RECURRENCES(recurrence_id),
-constraint FK_EVENT_PAYMENTS foreign key (payment_id) references PAYMENT_INFORMATION(payment_id),
-constraint FK_EVENT_USER foreign key(user_id) references USERS(user_id)
+constraint FK_EVENT_TYPE foreign key(event_type) references stg.EVENT_TYPE(id),
+constraint FK_EVENT_RECURRENCE foreign key(recurrence) references stg.RECURRENCES(recurrence_id),
+constraint FK_EVENT_PAYMENTS foreign key (payment_id) references stg.PAYMENT_INFORMATION(payment_id),
+constraint FK_EVENT_USER foreign key(user_id) references stg.USERS(user_id)
 );
 
 CREATE TABLE IF NOT EXISTS stg.EVENT(
@@ -73,5 +73,5 @@ user_id bigint,
 event_id int,
 amount decimal(10,3),
 update_date date not null,
-constraint FK_EVENT_INFO foreign key(user_id,event_id) references EVENT_INFORMATION(user_id,event_id)
+constraint FK_EVENT_INFO foreign key(user_id,event_id) references stg.EVENT_INFORMATION(user_id,event_id)
 );
