@@ -1,0 +1,49 @@
+services:
+  mysql-db:
+    image:  mysql:8
+    #ports:
+    #  - 3306:3306
+    networks:
+      - db-network
+    environment:
+      MYSQL_DATABASE: finance
+      MYSQL_ROOT_PASSWORD: 
+    volumes:
+      - db-mysql:/var/lib/mysql
+  mysql-admin:
+    image: phpmyadmin:5.2
+    ports:
+      - 8080:80
+    networks:
+      - db-network
+    environment:
+      - PMA_HOST=mysql-db
+  analytic-db:
+    image: postgres:17.4-alpine3.20
+    ports:
+      - 5432:5432
+    networks:
+      - db-network
+    volumes:
+      - db-analytics:/var/lib/postgres
+    environment:
+      POSTGRES_PASSWORD: 
+  pgAdmin:
+    # host.docker.internal
+    image: dpage/pgadmin4:9.1
+    networks:
+      - db-network
+    ports:
+      - 8081:81
+    environment:
+      PGADMIN_LISTEN_PORT: 81
+      PGADMIN_DEFAULT_EMAIL: josue.tdad@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: 
+networks:
+  db-network: {}
+volumes:
+  db-mysql:
+    name: transactional
+  db-analytics:
+    name: analytic
+
