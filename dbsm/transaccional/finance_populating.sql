@@ -46,7 +46,7 @@ VALUES
 (1, 6, 1, 1, 1, '2024-01-12', '2023-12-20', null,null, 21, 1, 1,'Servicio star link'),
 (1, 7, 2, 1, 1, '2024-01-12', '2024-01-01', '2025-01-01',null,null, 1, 1,'IPhone'),
 (1, 8, 2, 1, 1, '2024-01-15', '2024-01-15', '2025-01-14',null,15, 1, 1,'Moto'),
-(1, 9, 5, 2, 1, '2025-02-07', null, null, null, 20, 1, 1, 'Renta Internet')
+(1, 9, 5, 2, 3, '2025-02-07', null, null, null, 20, 1, 1, 'Renta Internet')
 ;
 
 INSERT INTO `EVENT`(user_id,event_id,amount,update_date)
