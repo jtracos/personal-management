@@ -7,7 +7,7 @@ services:
       - db-network
     environment:
       MYSQL_DATABASE: finance
-      MYSQL_ROOT_PASSWORD: 
+      MYSQL_ROOT_PASSWORD: ${USER_PASSWORD}
     volumes:
       - db-mysql:/var/lib/mysql
   mysql-admin:
@@ -27,7 +27,7 @@ services:
     volumes:
       - db-analytics:/var/lib/postgres
     environment:
-      POSTGRES_PASSWORD: 
+      POSTGRES_PASSWORD: ${USER_PASSWORD}
   pgAdmin:
     # host.docker.internal
     image: dpage/pgadmin4:9.1
@@ -38,7 +38,7 @@ services:
     environment:
       PGADMIN_LISTEN_PORT: 81
       PGADMIN_DEFAULT_EMAIL: josue.tdad@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: 
+      PGADMIN_DEFAULT_PASSWORD: ${USER_PASSWORD}
 networks:
   db-network: {}
 volumes:
