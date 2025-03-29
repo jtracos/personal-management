@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS stg.USERS(
 
 CREATE TABLE IF NOT EXISTS stg.RECURRENCES(
 recurrence_id int check( recurrence_id in (-1,1,2,3)),
-recurrence_desc varchar(50),
+recurrence_desc varchar(20),
 update_date date not null,
 constraint PK_RECURRENCE primary key(recurrence_id)
 );

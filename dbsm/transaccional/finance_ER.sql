@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS USERS(
 
 CREATE TABLE IF NOT EXISTS RECURRENCES(
 recurrence_id tinyint check( recurrence_id in (-1,1,2,3)),
-recurrence_desc varchar(50),
+recurrence_desc varchar(20),
 update_date date not null,
 constraint PK_RECURRENCE primary key(recurrence_id)
 );
