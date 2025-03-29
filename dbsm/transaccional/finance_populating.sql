@@ -35,18 +35,18 @@ VALUES
 ;
 INSERT INTO EVENT_INFORMATION(
     user_id,event_id,payment_id,event_type,recurrence,signup_date,
-    start_date,end_date,duration_month,payment_day,ind_periodic,
+    start_date,end_date,duration_month,payment_day,
     ind_active,event_desc)
 VALUES
-(1, 1, 3, 2, 1, '2024-01-07', null, null, null, null, 1, 1, 'NOMINA IDS'),
-(1, 2, 2, 1, 1, '2024-01-07', '2023-02-05', '2024-02-05',null,null,1, 1, 'Licuadora ninja'),
-(1, 3, 2, 1, 1, '2024-01-07', '2023-12-19', '2024-12-19',null, 21, 1, 1,'Star link'),
-(1, 4, 2, 1, 1, '2024-01-08', '2024-01-15', null,null,15, 1, 1,'Internet'),
-(1, 5, 1, 1, -1, '2024-01-12', '2024-01-12', null,null,15, 1, 1,'membresia crunchy roll'),
-(1, 6, 1, 1, 1, '2024-01-12', '2023-12-20', null,null, 21, 1, 1,'Servicio star link'),
-(1, 7, 2, 1, 1, '2024-01-12', '2024-01-01', '2025-01-01',null,null, 1, 1,'IPhone'),
-(1, 8, 2, 1, 1, '2024-01-15', '2024-01-15', '2025-01-14',null,15, 1, 1,'Moto'),
-(1, 9, 5, 2, 3, '2025-02-07', null, null, null, 20, 1, 1, 'Renta Internet')
+(1, 1, 3, 2, 1, '2024-01-07', null, null, null, null, 1, 'NOMINA IDS'),
+(1, 2, 2, 1, 1, '2024-01-07', '2023-02-05', '2024-02-05',null,null, 1, 'Licuadora ninja'),
+(1, 3, 2, 1, 1, '2024-01-07', '2023-12-19', '2024-12-19',null, 21, 1,'Star link'),
+(1, 4, 2, 1, 1, '2024-01-08', '2024-01-15', null,null,15, 1,'Internet'),
+(1, 5, 1, 1, -1, '2024-01-12', '2024-01-12', null,null,15, 1,'membresia crunchy roll'),
+(1, 6, 1, 1, 1, '2024-01-12', '2023-12-20', null,null, 21,, 1,'Servicio star link'),
+(1, 7, 2, 1, 1, '2024-01-12', '2024-01-01', '2025-01-01',null,null, 1,'IPhone'),
+(1, 8, 2, 1, 1, '2024-01-15', '2024-01-15', '2025-01-14',null,15, 1,'Moto'),
+(1, 9, 5, 2, 3, '2025-02-07', null, null, null, 20, 1, 'Renta Internet')
 ;
 
 INSERT INTO EVENT(user_id,event_id,amount,update_date, ind_active)
