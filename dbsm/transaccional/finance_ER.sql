@@ -75,5 +75,6 @@ user_id bigint,
 event_id int,
 amount decimal(10,3),
 update_date date not null,
+ind_active tinyint not null check( ind_active in (0, 1)),
 constraint FK_EVENT_INFO foreign key(user_id,event_id) references EVENT_INFORMATION(user_id,event_id)
 );
