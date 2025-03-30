@@ -134,7 +134,7 @@ $$
     --transacciones unicas y mensuales no asociadas a tarjetas con fechas
       THEN EI.payment_day
     END AS effective_transac_day,
-    PI.payment_lapse
+    COALESCE(PI.payment_lapse, 0)
   FROM stg.EVENT_INFORMATION EI
     LEFT JOIN
     (
