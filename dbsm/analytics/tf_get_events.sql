@@ -57,7 +57,7 @@ descripcion varchar(50),
   payment_lapse INTEGER,
   banco_asociado varchar(50),
   tipo_tarjeta_asoc varchar(50),
-  ind_ult_actualizacion INTEGER
+  ind_activo INTEGER
   )
 AS
 $$
