@@ -184,6 +184,7 @@ WHERE
   THEN 
     EXTRACT(DAY FROM time_tbl.period_dt) = events.effective_transac_day
     AND time_tbl.period_dt <= LAST_DAY((events.event_start_dt + interval '1 month')::date)
+	AND (DATE_TRUNC('month', events.event_start_dt)::date -1 + events.payment_day)::date < time_tbl.period_dt - events.payment_lapse
   WHEN events.recurrence_id = 1 --bisemanal
   THEN
     EXTRACT(DAY FROM time_tbl.period_dt) = 15
