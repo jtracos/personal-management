@@ -161,6 +161,7 @@ $$ LANGUAGE SQL;
 
 SELECT
 	time_tbl.period_dt as effective_dt,
+	time_tbl.period_dt - events.payment_lapse as cutoff_dt,
 	events.user_id,
 	events.event_id,
 	events.event_type,
@@ -176,15 +177,15 @@ LEFT JOIN
 	FROM generate_series('2024-01-07', '2024-02-28', INTERVAL '1 DAY') d
 ) time_tbl
 ON
-  time_tbl.period_dt BETWEEN events.event_start_dt AND COALESCE(events.event_end_dt, current_date)
-  AND time_tbl.period_dt BETWEEN events.amount_start_dt AND COALESCE(events.amount_end_dt, current_date)
+  time_tbl.period_dt - events.payment_lapse BETWEEN events.event_start_dt AND COALESCE(events.event_end_dt, current_date)
+  AND time_tbl.period_dt - events.payment_lapse BETWEEN events.amount_start_dt AND COALESCE(events.amount_end_dt, current_date)
 WHERE
 	CASE
   WHEN events.recurrence_id = -1 --transaccion unica
   THEN 
     EXTRACT(DAY FROM time_tbl.period_dt) = events.effective_transac_day
     AND time_tbl.period_dt <= LAST_DAY((events.event_start_dt + interval '1 month')::date)
-	AND (DATE_TRUNC('month', events.event_start_dt)::date -1 + events.payment_day)::date < time_tbl.period_dt - events.payment_lapse
+	AND (DATE_TRUNC('month', events.event_start_dt)::date -1 + events.payment_day)::date < time_tbl.period_dt
   WHEN events.recurrence_id = 1 --bisemanal
   THEN
     EXTRACT(DAY FROM time_tbl.period_dt) = 15
