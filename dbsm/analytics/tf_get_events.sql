@@ -159,7 +159,21 @@ $$
   WHERE EI.user_id = user_
 $$ LANGUAGE SQL;
 
-
+CREATE OR REPLACE FUNCTION stg.get_event_facts(user_id integer, start_dt date, end_dt date)
+RETURNS
+TABLE (
+  effective_dt date,
+  cutoff_dt date,
+  user_id integer,
+  event_id integer,
+  event_type integer,
+  recurrence_id integer,
+  card_type_id integer,
+  amount decimal(10,3),
+  payment_lapse integer,
+  payment_day integer
+)
+AS $$
 SELECT
 	time_tbl.period_dt as effective_dt,
 	time_tbl.period_dt - events.payment_lapse as cutoff_dt,
@@ -169,19 +183,21 @@ SELECT
 	events.recurrence_id,
 	events.card_type_id,
 	events.amount,
-	coalesce(events.payment_lapse,0) payment_lapse
-FROM public.dim_events(1) events
-LEFT JOIN
-(
-	SELECT
-		date_trunc('day',d)::date AS period_dt
-	FROM generate_series('2024-01-07', '2024-02-28', INTERVAL '1 DAY') d
-) time_tbl
-ON
-  time_tbl.period_dt - events.payment_lapse BETWEEN events.event_start_dt AND COALESCE(events.event_end_dt, current_date)
-  AND time_tbl.period_dt - events.payment_lapse BETWEEN events.amount_start_dt AND COALESCE(events.amount_end_dt, current_date)
+	events.payment_lapse,
+  events.payment_day
+FROM public.dim_events events
+  LEFT JOIN
+  (
+  	SELECT
+  		date_trunc('day',d)::date AS period_dt
+  	FROM generate_series($2, $3, INTERVAL '1 DAY') d
+  ) time_tbl
+  ON
+    time_tbl.period_dt - events.payment_lapse BETWEEN events.event_start_dt AND COALESCE(events.event_end_dt, current_date)
+    AND time_tbl.period_dt - events.payment_lapse BETWEEN events.amount_start_dt AND COALESCE(events.amount_end_dt, current_date)
 WHERE
-	CASE
+  events.user_id = $1 AND
+  CASE
   WHEN events.recurrence_id = -1 --transaccion unica
   THEN 
     EXTRACT(DAY FROM time_tbl.period_dt) = events.effective_transac_day
@@ -198,3 +214,4 @@ WHERE
   THEN
     EXTRACT(DAY FROM time_tbl.period_dt) = events.effective_transac_day
   END
+$$ LANGUAGE SQL;

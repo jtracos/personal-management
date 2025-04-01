@@ -14,3 +14,18 @@ CREATE OR REPLACE TABLE public.dim_events(
   effective_transac_day integer,
   payment_lapse integer
   )
+;
+
+CREATE OR REPLACE TABLE public.fact_analytic_events(
+  effective_dt date,
+  cutoff_dt date,
+  real_transaction_dt date,
+  user_id integer,
+  event_id integer,
+  event_type integer,
+  recurrence_id integer,
+  card_type_id integer,
+  amount decimal(10,3),
+  payment_lapse integer,
+  payment_day integer
+)

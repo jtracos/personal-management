@@ -35,3 +35,43 @@ AS $$
     payment_lapse
   FROM public.tf_get_events_updates(user_id_);
 $$
+;
+
+
+CREATE OR REPLACE PROCEDURE stg.load_to_fact_analytic_events(user_id_ integer, start_dt date, end_dt date)
+LANGUAGE SQL
+AS $$
+  DELETE FROM public.fact_analytic_events WHERE user_id = user_id
+    AND effective_dt BETWEEN start_dt AND end_dt;
+  INSERT INTO public.fact_analytic_events(
+    effective_dt,
+    cutoff_dt,
+    user_id,
+    event_id,
+    event_type,
+    recurrence_id,
+    card_type_id,
+    amount,
+    payment_lapse,
+    payment_day,
+    real_transaction_dt
+  )
+  SELECT
+    effective_dt,
+    cutoff_dt,
+    user_id,
+    event_id,
+    event_type,
+    recurrence_id,
+    card_type_id,
+    amount,
+    payment_lapse,
+    payment_day,
+    CASE
+      WHEN payment_day IS NULL THEN cutoff_dt
+  	  WHEN DATE_TRUNC('month', cutoff_dt)::date +(payment_day -1) >= cutoff_dt
+  	  THEN DATE_TRUNC('month', DATE_TRUNC('month', cutoff_dt)::date -1)::date +(payment_day -1)
+  	  ELSE DATE_TRUNC('month', cutoff_dt)::date +(payment_day -1)
+    END AS real_transaction_dt
+  FROM stg.get_event_facts(user_id_, start_dt, end_dt)
+$$
