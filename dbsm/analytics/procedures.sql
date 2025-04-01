@@ -1,4 +1,4 @@
-CREATE PROCEDURE load_to_dim_events(user_id_ integer)
+CREATE PROCEDURE stg.load_to_dim_events(user_id_ integer)
 LANGUAGE SQL
 AS $$
   DELETE FROM public.dim_events WHERE user_id = user_id_;
@@ -7,6 +7,7 @@ AS $$
     event_id,
     event_type,
     recurrence_id,
+    event_desc,
     event_start_dt,
     event_end_dt,
     amount_start_dt,
@@ -23,6 +24,7 @@ AS $$
     event_id,
     event_type,
     recurrence_id,
+    event_desc,
     event_start_dt,
     event_end_dt,
     amount_start_dt,
@@ -33,7 +35,7 @@ AS $$
     payment_limit_day,
     effective_transac_day,
     payment_lapse
-  FROM public.tf_get_events_updates(user_id_);
+  FROM stg.tf_get_events_updates(user_id_);
 $$
 ;
 

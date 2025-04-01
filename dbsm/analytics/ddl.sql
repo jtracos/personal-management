@@ -3,6 +3,7 @@ CREATE OR REPLACE TABLE public.dim_events(
   event_id integer,
   event_type integer,
   recurrence_id integer,
+  event_desc varchar(50),
   event_start_dt date,
   event_end_dt date,
   amount_start_dt date,

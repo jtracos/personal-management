@@ -100,6 +100,7 @@ TABLE (
   event_id integer,
   event_type integer,
   recurrence_id integer,
+  event_desc varchar(50),
   event_start_dt date,
   event_end_dt date,
   amount_start_dt date,
@@ -118,6 +119,7 @@ $$
     EI.event_id,
     EI.event_type,
     EI.RECURRENCE AS recurrence_id,
+    EI.event_desc,
     CASE
       WHEN EI.start_date IS NULL THEN EI.signup_date
       ELSE EI.signup_date END AS event_start_dt,
