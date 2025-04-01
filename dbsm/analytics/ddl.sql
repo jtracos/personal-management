@@ -25,6 +25,7 @@ CREATE OR REPLACE TABLE public.fact_analytic_events(
   event_id integer,
   event_type integer,
   recurrence_id integer,
+  event_desc varchar(50),
   card_type_id integer,
   amount decimal(10,3),
   payment_lapse integer,
