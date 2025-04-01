@@ -92,7 +92,7 @@ $$
    EI.USER_ID = user_
 $$ LANGUAGE SQL;
 
-CREATE OR REPLACE FUNCTION public.dim_events( user_ integer)
+CREATE OR REPLACE FUNCTION stg.tf_get_events_updates( user_ integer)
 RETURNS 
 TABLE (
   user_id integer,
