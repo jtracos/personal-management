@@ -1,7 +1,8 @@
-CREATE OR REPLACE FUNCTION stg.tf_get_events( user_ integer)
+--tf de prueba con denormalizacion
+CREATE OR REPLACE FUNCTION stg.tf_get_events_with_labels( user_ integer)
 RETURNS 
 TABLE (
-descripcion varchar(50),
+  descripcion varchar(50),
   recurrencia varchar(50),
   fecha_inicio_programada DATE,
   fecha_fin_programada DATE,
@@ -40,8 +41,8 @@ $$
     ON EI.RECURRENCE = R.RECURRENCE_ID
   WHERE EI.USER_ID = user_
 $$ LANGUAGE SQL;
-
-CREATE OR REPLACE FUNCTION stg.tf_get_events_updates( user_ integer)
+-- tf de prueba de actualizaciones denormalizada
+CREATE OR REPLACE FUNCTION stg.tf_get_events_updates_with_labels( user_ integer)
 RETURNS 
 TABLE (
   descripcion varchar(50),
